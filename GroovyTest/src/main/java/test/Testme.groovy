@@ -1,4 +1,5 @@
 package test
+import java.awt.*
 
-println "hello"
+println "hellotrue"
 
