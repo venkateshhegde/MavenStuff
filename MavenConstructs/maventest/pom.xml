@@ -11,14 +11,24 @@
     <properties>
         <slf4j.version>1.6.4</slf4j.version>
         <logback.version>1.0.1</logback.version>
-
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.4.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.4.2</version>
+            <scope>test</scope>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -26,26 +36,23 @@
             <version>1.7.26</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-ext -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-ext</artifactId>
-            <version>1.7.26</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.9.0</version>
         </dependency>
 
     </dependencies>
-
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>ven-Inspiron-7390-2n1-releases</name>
+            <url>http://localhost:8081/artifactory/VenKey</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>ven-Inspiron-7390-2n1-snapshots</name>
+            <url>http://localhost:8081/artifactory/VenKey</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
