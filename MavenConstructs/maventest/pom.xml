@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>org.ven</groupId>
     <artifactId>maventest</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -11,8 +12,7 @@
     <properties>
         <slf4j.version>1.6.4</slf4j.version>
         <logback.version>1.0.1</logback.version>
-
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -26,16 +26,9 @@
             <version>1.7.26</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-            <scope>runtime</scope>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.9.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-ext -->
@@ -46,6 +39,17 @@
         </dependency>
 
     </dependencies>
-
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>ven-Inspiron-7390-2n1-releases</name>
+            <url>http://localhost:8081/artifactory/VenKey</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>ven-Inspiron-7390-2n1-snapshots</name>
+            <url>http://localhost:8081/artifactory/VenKey</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
