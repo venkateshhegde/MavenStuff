@@ -6,6 +6,7 @@
 
     <groupId>org.ven</groupId>
     <artifactId>maventest</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <scm>
@@ -14,6 +15,10 @@
         <tag>HEAD</tag>
         <url>http://127.0.0.1/dummy</url>
     </scm>
+    <modules>
+        <module>model</module>
+        <module>baseMoved</module>
+    </modules>
 
 
     <properties>
@@ -113,56 +118,9 @@
             </configuration>
         </plugin>
 
-        <plugin>
-            <artifactId>maven-install-plugin</artifactId>
-            <version>2.5.2</version>
-            <executions>
-                <execution>
-                    <phase>install</phase>
-                    <goals>
-                        <goal>install-file</goal>
-                    </goals>
-                    <configuration>
-                        <file>target/${project.artifactId}-${project.version}-r${buildNumber}.jar</file>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
 
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>3.2.1</version>
-
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>shade</goal>
-                    </goals>
-                    <configuration>
-                        <shadedArtifactAttached>true</shadedArtifactAttached>
-                        <transformers>
-                            <transformer implementation=
-                                                 "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                <mainClass>org.baeldung.executable.ExecutableMavenJar</mainClass>
-                            </transformer>
-                        </transformers>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>2.5.3</version>
-            <configuration>
-                <goals>deploy</goals>
-                <autoVersionSubmodules>true</autoVersionSubmodules>
-            </configuration>
-        </plugin>
     </plugins>
         <finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
-
     </build>
 
 
