@@ -8,6 +8,14 @@
     <artifactId>maventest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <scm>
+        <connection>scm:svn:http://127.0.0.1/dummy</connection>
+        <developerConnection>scm:svn:https://127.0.0.1/dummy</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://127.0.0.1/dummy</url>
+    </scm>
+
+
     <properties>
         <slf4j.version>1.6.4</slf4j.version>
         <logback.version>1.0.1</logback.version>
@@ -54,5 +62,108 @@
             <url>http://localhost:8081/artifactory/VenKey</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <build>
+    <plugins>
+    <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+        </configuration>
+
+    </plugin>
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+            <execution>
+                <id>buildnumber</id>
+                <phase>validate</phase>
+                <goals>
+                    <goal>create</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <format>{0,number}</format>
+            <items>
+                <item>buildNumber</item>
+            </items>
+            <doCheck>true</doCheck>
+            <doUpdate>true</doUpdate>
+            <revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
+        </configuration>
+    </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.1</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                    </manifest>
+                    <manifestEntries>
+                        <Implementation-Build>${buildNumber}</Implementation-Build>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <artifactId>maven-install-plugin</artifactId>
+            <version>2.5.2</version>
+            <executions>
+                <execution>
+                    <phase>install</phase>
+                    <goals>
+                        <goal>install-file</goal>
+                    </goals>
+                    <configuration>
+                        <file>target/${project.artifactId}-${project.version}-r${buildNumber}.jar</file>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.1</version>
+
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <shadedArtifactAttached>true</shadedArtifactAttached>
+                        <transformers>
+                            <transformer implementation=
+                                                 "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>org.baeldung.executable.ExecutableMavenJar</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.5.3</version>
+            <configuration>
+                <goals>deploy</goals>
+                <autoVersionSubmodules>true</autoVersionSubmodules>
+            </configuration>
+        </plugin>
+    </plugins>
+        <finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
+
+    </build>
+
 
 </project>
